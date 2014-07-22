@@ -1,0 +1,79 @@
+#cover-photo
+
+.container
+  %h1{ style: "text-align:center; margin-top:0; font-size: 100px"} SlowCSS.js
+  %div{ style: "text-align:center; font-size: 30px; font-weight: 200" }
+    Slow motion CSS transitions
+
+  %h1 Example
+
+  %p
+    The following buttons will make transitions and animations two times slower/faster.
+    It shows Bootstrap Modal to demonstrate CSS transition.
+    It also adds new animating square.
+    (Reload this page to reset.)
+
+  %a#slow-button.btn.btn-default{ href: "#" }
+    2x Slower
+  %a#fast-button.btn.btn-default{ href: "#" }
+    2x Faster
+
+  #spinners.clearfix
+    .spinner
+
+  %p
+    This library updates the CSS rule, thus it seems natural to me that every animations in the document is affected. However, the timing when the animation change applies depends on browsers. Chrome does not change already inserted animating elements. Safari changes once the tab send to background. Firefox does not change at all.
+
+  %h1 API
+
+  %h2 SlowCSS.scale(<i>factor</i>)
+
+  %p
+    Scale durations in all <code>transition</code> and <code>animation</code> related rules in CSS.
+
+  %pre
+    = preserve do
+      SlowCSS.scale(2);
+      SlowCSS.scale(0.5);
+
+  %p
+    The example changes the duration two times slower and two times faster.
+
+  %h3 Limitations
+
+  %p
+    This does not work for rules loaded from another origin.
+    Make sure all stylesheets are loaded from your server, not from CDN.
+
+%hr{ style: "margin:20px" }
+
+%div.container.footer
+  Soutaro Matsumoto, matsumoto@soutaro.com
+
+#sample-modal.fade.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ type: "button", "data-dismiss" => "modal" }
+          %span{ "aria-hidden" => "true" } &times
+        %h4
+          slowanimation.js
+      .modal-body
+        Example modal dialog.
+
+:javascript
+  $("#slow-button").on("click", function() {
+    SlowCSS.scale(2);
+    $("#sample-modal").modal();
+    node = $("<div class='spinner'></div>");
+    $("#spinners").append(node);
+    return false;
+  });
+
+  $("#fast-button").on("click", function() {
+    SlowCSS.scale(0.5);
+    $("#sample-modal").modal();
+    node = $("<div class='spinner'></div>");
+    $("#spinners").append(node);
+    return false;
+  });
